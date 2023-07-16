@@ -1,0 +1,26 @@
+// Media queries
+// Breakpoints
+$sm: 600;
+$md: 960;
+$lg: 1280;
+$xl: 1920;
+
+@mixin responsive($breakpoint){
+    @if $breakpoint == 'md' {
+        @media screen and (min-width: #{$md}px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint == 'lg' {
+        @media screen and (min-width: #{$lg}px) {
+            @content;
+        }
+    }
+
+    @if $breakpoint == 'xl' {
+        @media screen and (min-width: #{$xl}px) {
+            @content;
+        }
+    }
+}

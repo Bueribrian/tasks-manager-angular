@@ -1,0 +1,18 @@
+<mat-toolbar *ngIf="user" class="navbar" color="primary">
+    <!-- Menu button -->
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <h1 class="navbar__title">Gestor de tareas</h1>
+
+    <!-- Spacer -->
+    <span class="navbar__spacer"></span>
+
+    <button mat-icon-button>
+        <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>

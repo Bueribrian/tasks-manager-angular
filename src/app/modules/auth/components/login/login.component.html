@@ -1,0 +1,19 @@
+<section class="container flex-center-center">
+    <form [formGroup]="loginForm" class="form" (submit)="submit()">
+        <h1 class="form__title">Login</h1>
+
+        <mat-form-field class="form__input" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" type="email" matInput>
+            <mat-error *ngIf="loginForm.get('email')?.errors">Error</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form__input" appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input formControlName="password" type="password" matInput>
+            <mat-error *ngIf="loginForm.get('password')?.errors">Error</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button class="form__submit" [disabled]="loginForm.invalid" type="submit" color="primary">Login</button>
+    </form>
+</section>
