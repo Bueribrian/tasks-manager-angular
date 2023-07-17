@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import User, { LoginUser, RegisterUser } from '../models/User.model';
+import { User, RegisterUser } from '../models/User.model';
 import { Router } from '@angular/router';
 
 //TODO: Agregar login con un servicio backend

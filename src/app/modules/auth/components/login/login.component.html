@@ -14,6 +14,12 @@
             <mat-error *ngIf="loginForm.get('password')?.errors">Error</mat-error>
         </mat-form-field>
 
+        <article>
+            <a routerLink="/auth/register">
+                No tienes cuenta? Create una!
+            </a>
+        </article>
+
         <button mat-raised-button class="form__submit" [disabled]="loginForm.invalid" type="submit" color="primary">Login</button>
     </form>
 </section>

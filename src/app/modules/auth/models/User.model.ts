@@ -1,14 +1,25 @@
-interface UserRole {
-    readonly id: number;
-    readonly name: 'admin' | 'basic';
+import { FormControl } from "@angular/forms";
+
+export enum Roles {
+    ADMIN = 'admin',
+    BASIC = 'basic'
 }
 
-export default class User {
+export enum RolesID {
+    'admin' = 1,
+    'basic' = 2
+}
+export interface UserRole {
+    readonly id: number;
+    readonly name: Roles;
+}
+
+export class User {
     public name: string;
     public lastName: string;
     public email: string;
     public phone?: number;
-    public role: UserRole;
+    public role?: UserRole;
 
     constructor(name: string, lastName: string, email: string, phone?: number){
         this.name = name;
@@ -16,17 +27,26 @@ export default class User {
         this.email = email;
         this.phone = phone;
         this.role = {
-            id: 2,
-            name: 'basic'
+            id: RolesID[Roles.BASIC],
+            name: Roles.BASIC
         }
     }
 }
 
-export interface LoginUser {
+export interface RegisterUser {
+    name: string;
+    lastName: string;
     email: string;
+    phone?: number;
     password: string;
+    // agregar repassword
 }
 
-export interface RegisterUser extends User {
-    password: string;
+export interface RegisterForm {
+    name: FormControl<string | null>;
+    lastName: FormControl<string | null>;
+    email: FormControl<string | null>;
+    phone?: FormControl<number | null>;
+    password: FormControl<string | null>;
+    // agregar repassword
 }

@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthenticationService } from 'src/app/modules/auth/services/authentication.service';
 import { SubscribeManager } from 'src/app/utils/subscribe-manager';
-import User from 'src/app/modules/auth/models/User.model';
+import { User } from 'src/app/modules/auth/models/User.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
