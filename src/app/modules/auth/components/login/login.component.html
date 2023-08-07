@@ -5,21 +5,19 @@
         <mat-form-field class="form__input" appearance="outline">
             <mat-label>Email</mat-label>
             <input formControlName="email" type="email" matInput>
-            <mat-error *ngIf="loginForm.get('email')?.errors">Error</mat-error>
+            <mat-error *ngIf="loginForm.get('email')?.errors">{{inputErrorsService.getErrorMessage(loginForm.get('email'))}}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="form__input" appearance="outline">
             <mat-label>Contraseña</mat-label>
             <input formControlName="password" type="password" matInput>
-            <mat-error *ngIf="loginForm.get('password')?.errors">Error</mat-error>
+            <mat-error *ngIf="loginForm.get('password')?.errors">{{inputErrorsService.getErrorMessage(loginForm.get('password'))}}</mat-error>
         </mat-form-field>
-
-        <article>
-            <a routerLink="/auth/register">
-                No tienes cuenta? Create una!
-            </a>
+        
+        <button mat-raised-button class="form__submit" [disabled]="processing" type="submit" color="primary">Login</button>
+        
+        <article class="form__register">
+            No tienes cuenta? <a routerLink="/auth/register">Create una!</a>
         </article>
-
-        <button mat-raised-button class="form__submit" [disabled]="loginForm.invalid" type="submit" color="primary">Login</button>
     </form>
 </section>

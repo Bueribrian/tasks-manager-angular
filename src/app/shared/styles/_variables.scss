@@ -1,6 +1,26 @@
 // Colors
-$primary: #c5cae9;
+$primary: #fdfdfc;
+$secondary: #f65931;
+$dark: #1b1b17;
+$success: #78e824;
+$warning: #ccc123;
+$danger: #e5383e;
+$info: #fbfcfd;
 
+// Fonts
+$font-family-serif: 'Poppins', sans-serif;
+$font-family-sanserif: 'Poppins', serif;
+$font-family-monospace: '';
+$font-size: 1rem;
+
+// Breakpoints
+$sm: 600;
+$md: 960;
+$lg: 1280;
+$xl: 1920;
+
+// Box padding
+$box-padding-md: 3rem;
 
 // Border-radius
 $border-rounded-sm: 4px;

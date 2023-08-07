@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RegisterComponent } from './components/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UiModule } from '../ui/ui.module';
 
 const routes: Routes = [
   {
@@ -22,14 +24,18 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     CommonModule,
+    // Modules
+    HttpClientModule,
+    UiModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
+
     RouterModule.forChild(routes),
   ],
   exports: [RouterModule]

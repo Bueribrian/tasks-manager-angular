@@ -1,10 +1,4 @@
 // Media queries
-// Breakpoints
-$sm: 600;
-$md: 960;
-$lg: 1280;
-$xl: 1920;
-
 @mixin responsive($breakpoint){
     @if $breakpoint == 'md' {
         @media screen and (min-width: #{$md}px) {

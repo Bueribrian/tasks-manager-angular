@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
 import { SubscribeManager } from 'src/app/utils/subscribe-manager';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { InputErrorsService } from 'src/app/modules/ui/services/input-errors.service';
 
 interface LoginFormGroup {
   email: FormControl<string | null>,
@@ -15,6 +16,7 @@ interface LoginFormGroup {
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends SubscribeManager implements OnInit, OnDestroy {
+  public processing: boolean = false;
 
   public loginForm: FormGroup = new FormGroup<LoginFormGroup>({
     email: new FormControl('', [Validators.required, Validators.email, Validators.min(12)],),
@@ -23,7 +25,8 @@ export class LoginComponent extends SubscribeManager implements OnInit, OnDestro
 
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    public inputErrorsService: InputErrorsService
   ) {
     super();
   }
@@ -40,13 +43,18 @@ export class LoginComponent extends SubscribeManager implements OnInit, OnDestro
 
   public submit(): void {
     if (this.loginForm.valid) {
+      this.processing = true;
+
       this.authenticationService.login(
         this.loginForm.get('email')?.value,
         this.loginForm.get('password')?.value
-      );
+      ).subscribe({
+        next: (user) => { console.log(user) },
+        complete: () => { this.processing = false; },
+        error: (err) => { console.log(err) }
+      });
     }
   }
-
 
   override ngOnDestroy(): void {
     super.ngOnDestroy();

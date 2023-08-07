@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { User, RegisterUser } from '../models/User.model';
+import { User, RegisterUser, UserLogged } from '../models/User.model';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 //TODO: Agregar login con un servicio backend
 
@@ -10,25 +12,41 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private browserStorageKey = environment.browserStorageKey + 'user';
+  private authUrl: string = environment.apiBaseUrl + 'api/auth/';
+  private loginUrl: string = this.authUrl + 'local'
+  private registerUrl: string = this.loginUrl + '/register';
 
+  private browserStorageKey = environment.browserStorageKey + 'user';
   public user$: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   public authenticated$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
       this.getUserLocalStorage();
   }
 
-  public login(email: string, password: string){
-    const userLogged = new User('test', 'test', email);
-    this.saveUserLocalStorage(userLogged);
-    this.user$.next(userLogged);
-    this.authenticated$.next(true);
+  public login(identifier: string, password: string): Observable<any>{
+    return this.http.post<{ jwt: string, user: User }>(this.loginUrl, {identifier, password}).pipe(
+      map((response) => {
+        return this.setUser(response);
+      })
+    )
   }
 
   public register(user: RegisterUser){
-    const userRegister = new User(user.name, user.lastName, user.email, user.phone)
-    this.login(user.email, user.password);
+    return this.http.post<{ jwt: string, user: User }>(this.registerUrl, user).pipe(
+      map(response => {
+        console.log(response)
+        return this.setUser(response);
+      })
+    )
+  }
+
+  public setUser(userLogged: UserLogged){
+    this.saveUserLocalStorage(userLogged);
+    this.user$.next(userLogged.user);
+    this.authenticated$.next(true);
+
+    return userLogged;
   }
 
   public logout(){
@@ -50,10 +68,8 @@ export class AuthenticationService {
     }
   }
 
-  private saveUserLocalStorage(user: User): void {
-    if(user){
-      localStorage.setItem(this.browserStorageKey, JSON.stringify(user))
-    }
+  private saveUserLocalStorage(user: UserLogged): void {
+    localStorage.setItem(this.browserStorageKey, JSON.stringify(user))
   }
 
   private deleteUserLocalStorage(): void {

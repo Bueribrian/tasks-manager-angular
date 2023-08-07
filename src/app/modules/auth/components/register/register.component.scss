@@ -14,18 +14,26 @@ section{
     background-color: $primary;
     min-width: #{$sm}px;
     max-width: 100%;
-    padding: 2rem;
+    padding: 8rem 5rem;
     border-radius: $border-rounded-md;
 
     &__title{
-        font-size: 28px;
-        margin-bottom: 3rem;
+        font-size: 4rem;
+        text-align: center;
+        margin-bottom: 5rem;
+        font-weight: bold;
     }
 
     &__input{
         border: none;
         display: block;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    &__login{
+        text-align: center;
+        font-size: 1.5rem;
+        margin-top: 3rem;
     }
 
     &__submit{

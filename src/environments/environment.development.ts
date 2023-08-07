@@ -1,3 +1,4 @@
 export const environment = {
-    browserStorageKey: 'tasksApp-dev-'
+    browserStorageKey: 'tasksApp-dev-',
+    apiBaseUrl: 'http://localhost:1337/'
 };

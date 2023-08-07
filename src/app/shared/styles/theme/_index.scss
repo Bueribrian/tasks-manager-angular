@@ -1,0 +1,45 @@
+@use '@angular/material' as mat;
+@use './palette' as palette;
+
+@include mat.core();
+
+$app-primary: mat.define-palette(palette.$primary);
+$app-accent: mat.define-palette(palette.$accent);
+
+$my-typography: mat.define-typography-config(
+    $font-family: 'Poppins',
+  );
+
+// Define a light theme
+$light-theme: mat.define-light-theme((
+ color: (
+   primary: mat.define-palette($app-primary),
+   accent: mat.define-palette(mat.$pink-palette),
+ ),
+ typography: $my-typography
+));
+
+// Define a dark theme
+$dark-theme: mat.define-dark-theme((
+ color: (
+   primary: mat.define-palette($app-primary),
+   accent: mat.define-palette(mat.$blue-grey-palette),
+ ),
+  // Only include `typography` and `density` in the default dark theme.
+  typography: $my-typography,
+));
+
+// Apply the dark theme by default
+@include mat.core-theme($dark-theme);
+@include mat.button-theme($dark-theme);
+@include mat.typography-hierarchy($my-typography);
+@include mat.all-component-themes($light-theme);
+
+// Apply the light theme only when the user prefers light themes.
+@media (prefers-color-scheme: light) {
+    // Use the `-color` mixins to only apply color styles without reapplying the same
+    // typography and density styles.
+    @include mat.core-color($light-theme);
+    @include mat.button-color($light-theme);
+    @include mat.all-component-themes($dark-theme);
+}
